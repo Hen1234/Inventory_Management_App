@@ -12,6 +12,7 @@ class ItemsService{
     }
 
     //TODO: return message on "else"- "id doesn't exist" or "withdraw is unvalid" 
+    //TODO: change to- res.json
     
     getItems(){
         return this.items;

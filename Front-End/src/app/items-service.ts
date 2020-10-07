@@ -11,15 +11,12 @@ export class ItemsService{
 
     getItemsRequest(){
 
-        this.http
+        return this.http
         .get< {}>(
             'http://localhost:3000/items/getItems',
         
-        )
-        .subscribe(responseData => {
-            console.log(responseData);
-        });
-
+        );
+       
     }
 
     addItemRequest(){

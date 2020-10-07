@@ -19,31 +19,27 @@ export class ItemsService{
        
     }
 
-    addItemRequest(){
+    addItemRequest(postData){
 
-        const postData = {name: "henush3", description: "blabla", count: "10"} 
-        this.http
+        
+        return this.http
         .post< {}>(
             'http://localhost:3000/items/addItem',
             postData
         )
-        .subscribe(responseData => {
-            //console.log(responseData);
-        });
+       
 
     }
 
-    updateItemRequest(){
+    updateItemRequest(updateData){
 
-        const putData = {id: "1", name: "henush3", description: "blabla"} 
-        this.http
+        
+        return this.http
         .put< {}>(
             'http://localhost:3000/items/updateItem',
-            putData
+            updateData
         )
-        .subscribe(responseData => {
-            //console.log(responseData);
-        });
+       
 
     }
 

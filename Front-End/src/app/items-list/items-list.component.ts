@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { ItemsService } from '../items-service';
 
 @Component({
@@ -9,35 +9,42 @@ import { ItemsService } from '../items-service';
 
 export class ItemsListComponent implements OnInit {
 
-  items;
-  itemsArray = [] ;
-
+  @Input() itemsArray;
+  @Output() updateItem = new EventEmitter();
+  @Output() removeItem = new EventEmitter();
+  @Output() withdrawItem = new EventEmitter();
+  @Output() depositItem = new EventEmitter();
 
   constructor(private itemService: ItemsService) {}
 
-
   ngOnInit(): void {
 
-    this.itemService.getItemsRequest().subscribe(responseData => {
-      this.items = responseData;
-      console.dir(this.items);
-     
-      this.convertItemsObjectToArray();
-    
-    });
+  
+  }
 
-   
+  updateClick(itemID){
+    this.updateItem.emit(itemID);
 
   }
 
-  convertItemsObjectToArray(){
-    this.itemsArray = Object.keys(this.items).map(key => {
-      const currentItem = this.items[key];
-      return {id: key, name: currentItem.name, description: currentItem.description, count: currentItem.count};
-     });
+  removeClick(event){
+    this.removeItem.emit(event);
 
-     console.dir(this.itemsArray);
   }
+
+  withdrawClick(event){
+    this.withdrawItem.emit(event);
+
+  }
+
+  depositClick(event){
+    this.depositItem.emit(event);
+
+  }
+
+
+
+  
 
 
 }

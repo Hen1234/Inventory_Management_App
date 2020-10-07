@@ -32,9 +32,11 @@ class ItemsService{
     
     updateItem(id, name, description){
 
-        if(this.items["item"+id]){
-            this.items["item"+id].name = name;
-            this.items["item"+id].description = description;   
+        
+        if(this.items[id]){
+            this.items[id].name = name;
+            this.items[id].description = description;  
+            return {id, name, description, count: (Number) (this.items[id].count)} 
         }
         else{
             
@@ -43,8 +45,10 @@ class ItemsService{
 
     addItem(name, description, count){
         
-        this.items["item"+this.itemCounter] = {name: name, description: description, count: Number(count)};
+        const id = "item"+this.itemCounter;
+        this.items[id] = {name: name, description: description, count: Number(count)};
         this.itemCounter++;
+        return {id: id,  name: name, description: description, count: Number(count)}
     
     }
 

@@ -1,9 +1,23 @@
 <div class= "item-container">
 
-<!-- div for each property -->
-{{item.name}}
+    
+    <div class="item-details">
+        {{item.id}}
+        {{item.name}}
+        {{item.description}}
+        {{item.count}}
+    </div>
 
-<!-- div for buttons -->
+   
+
+    <div class= "actions-buttons">
+        <button class= "updateItem"(click)="updateClick($event)">update</button>
+        <button class= "withdrawItem"(click)="withdrawClick($event)">withdraw</button>
+        <button class= "depositItem"(click)="depositClick($event)">deposit</button>
+        <button class= "removeItem"(click)="removeClick($event)">remove</button>
+
+    </div>
+
 
 </div>
 

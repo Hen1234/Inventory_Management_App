@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { PrimaryButtonComponent } from './primary-btn/primary-btn.component';
 import { ItemsListComponent } from './items-list/items-list.component';
 import { ItemComponent } from './items-list/item/item.component';
+import { ItemsPageComponent } from './items-page/items-page.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { ItemComponent } from './items-list/item/item.component';
     PrimaryButtonComponent,
     ItemsListComponent,
     ItemComponent,
+    ItemsPageComponent,
     
   ],
   imports: [

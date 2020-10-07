@@ -1,6 +1,9 @@
+
 <div class= "items-list">
   
-    <app-item *ngFor= "let item of itemsArray" [item]= item> 
+    <app-item *ngFor= "let item of itemsArray" [item]= item
+    
+    (update)="updateClick($event)" (remove)= "removeClick()" (withdraw)= "withdrawClick()" (deposit)= "depositClick()"> 
     </app-item>
        
 </div>

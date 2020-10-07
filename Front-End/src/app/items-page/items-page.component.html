@@ -1,0 +1,8 @@
+<p>items-page works!</p>
+
+<app-primary-btn [text]= "'Add New Item'" (clickButton)="addItem()"></app-primary-btn>
+
+<app-items-list [itemsArray]= "itemsArray"
+(updateItem)="update($event)" (removeItem)= "remove()" (withdrawItem)= "withdraw()" (depositItem)= "deposit()" >
+</app-items-list>
+

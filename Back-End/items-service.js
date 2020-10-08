@@ -37,6 +37,7 @@ class ItemsService{
             this.items[id].name = name;
             this.items[id].description = description;  
             return {id, name, description, count: (Number) (this.items[id].count)} 
+            
         }
         else{
             
@@ -46,33 +47,36 @@ class ItemsService{
     addItem(name, description, count){
         
         const id = "item"+this.itemCounter;
-        this.items[id] = {name: name, description: description, count: Number(count)};
+        this.items[id] = {name, description, count: Number(count)};
         this.itemCounter++;
-        return {id: id,  name: name, description: description, count: Number(count)}
+        return {id: id,  name, description, count: Number(count)}
+        
     
     }
 
     removeItem(id){
 
-        if(this.items["item"+id]){
+        if(this.items[id]){
+            delete this.items[id];
+            return id;
 
-            this.items["item"+id] = undefined;
         }
         else{
            
         }
     }
 
+   
+
     withdrawItem(id, amount){
 
         var currentCount = 0;
-        if(this.items["item"+id]){
-           currentCount = this.items["item"+id].count;
-           console.log("count= "+currentCount);
-           console.log("amount= "+amount);
+        if(this.items[id]){
+           currentCount = this.items[id].count;
            if(currentCount >= amount){
-               console.log("here");
-                this.items["item"+id].count = currentCount - Number(amount); 
+                this.items[id].count = currentCount - Number(amount); 
+                return {id, name:this.items[id].name, description:this.items[id].description, count:this.items[id].count}
+             
            }else{
               
            }
@@ -85,9 +89,9 @@ class ItemsService{
 
     depositItem(id, amount){
 
-        if(this.items["item"+id]){
-           this.items["item"+id].count = this.items["item"+id].count + Number(amount);
-          
+        if(this.items[id]){
+           this.items[id].count = this.items[id].count + Number(amount);
+           return {id, name:this.items[id].name, description:this.items[id].description, count:this.items[id].count}         
         }
         else{
           

@@ -1,8 +1,90 @@
 <p>items-page works!</p>
 
-<app-primary-btn [text]= "'Add New Item'" (clickButton)="addItem()"></app-primary-btn>
+<app-primary-btn [text]= "'Add New Item'" (clickButton)="addItem(content)"></app-primary-btn>
 
 <app-items-list [itemsArray]= "itemsArray"
-(updateItem)="update($event)" (removeItem)= "remove()" (withdrawItem)= "withdraw()" (depositItem)= "deposit()" >
+(updateItem)="update($event,content)" (removeItem)= "remove($event)" (withdrawItem)= "withdraw($event,content)" (depositItem)= "deposit($event,content)" >
 </app-items-list>
+
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{modalTitle}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class= "add-content" *ngIf="modalStatus===ModalStatus.AddItem">
+            <div>
+                <label>Item Name:</label>
+                <input type="text" [(ngModel)]= "addNameValue"
+                (ngModelChange)= "changeAddValue()">
+            </div>
+           <div>
+                <label>Item Description:</label>
+                <input type="text" [(ngModel)]= "addDescriptionValue"
+                (ngModelChange)= "changeAddValue()">
+           </div>
+            <div>
+                <label>Item Amount:</label>
+                <input type="number" min="0" [(ngModel)]= "addCountValue"
+                (ngModelChange)= "changeAddValue()">
+                <div class="errorMessage" *ngIf="errorMessage1 || errorMessage2">
+                    <div>{{errorMessage1}}</div>
+                    <div>{{errorMessage2}}</div>
+                </div>
+
+            </div>
+        </div>
+        <div class= "update-content" *ngIf="modalStatus===ModalStatus.UpdateItem">
+            <div>
+                <div> Item Name: {{modalItem.name}}</div>
+                <label>New Item Name:</label>
+                <input type="text" [(ngModel)]= "updateNameValue"
+                (ngModelChange)= "changeUpdateValue()">
+            </div>
+           <div>
+                <div> Item Description: {{modalItem.description}}</div>
+                <label>New Item Description:</label>
+                <input type="text" [(ngModel)]= "updateDescriptionValue"
+                (ngModelChange)= "changeUpdateValue()">
+           </div>
+           <div class="errorMessage" *ngIf="errorMessage1">
+                {{errorMessage1}}
+            </div>
+
+        </div>
+        <div class= "withdraw-content" *ngIf="modalStatus===ModalStatus.WithdrawItem">
+            <div> Item Amount: {{modalItem.count}}</div>
+            <label>New Item Amount:</label>
+            <input type="number" min="0" [max]="modalItem.count"  [(ngModel)]= "withdrawAmountValue"
+             (ngModelChange)= "changeWithdrawValue()">
+             <div class="errorMessage" *ngIf="errorMessage1">
+                {{errorMessage1}}
+             </div>
+            <!-- TODO: mark in 'red' if the value is invalid -->
+
+        </div>
+        <div class= "deposit-content" *ngIf="modalStatus===ModalStatus.DepositItem">
+            <div> Item Amount: {{modalItem.count}}</div>
+            <label>New Item Amount:</label>
+            <input type="number" min="0" [(ngModel)]= "depositAmountValue"
+             (ngModelChange)= "changeDepositValue()">
+             <div class="errorMessage" *ngIf="errorMessage1">
+                {{errorMessage1}}
+             </div>
+            <!-- TODO: mark in 'red' if the value is invalid -->
+
+        </div>
+     
+    </div>
+    <div class="modal-footer">
+      <button type="button" [disabled]= "errorMessage1 || errorMessage2" class="btn btn-outline-dark" (click)="saveChanges()">Save</button>
+    </div>
+  </ng-template>
+  
+  
+ 
 

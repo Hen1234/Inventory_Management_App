@@ -8,6 +8,8 @@ import { PrimaryButtonComponent } from './primary-btn/primary-btn.component';
 import { ItemsListComponent } from './items-list/items-list.component';
 import { ItemComponent } from './items-list/item/item.component';
 import { ItemsPageComponent } from './items-page/items-page.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import { ItemsPageComponent } from './items-page/items-page.component';
   ],
   imports: [
     BrowserModule, 
-    HttpClientModule
+    HttpClientModule, NgbModule,
+    FormsModule,
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

@@ -3,7 +3,7 @@
   
     <app-item *ngFor= "let item of itemsArray" [item]= item
     
-    (update)="updateClick($event)" (remove)= "removeClick()" (withdraw)= "withdrawClick()" (deposit)= "depositClick()"> 
+    (update)="updateClick($event)" (remove)= "removeClick($event)" (withdraw)= "withdrawClick($event)" (deposit)= "depositClick($event)"> 
     </app-item>
        
 </div>

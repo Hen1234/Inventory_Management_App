@@ -19,13 +19,13 @@ export class ItemsService{
        
     }
 
-    addItemRequest(postData){
+    addItemRequest(newItem){
 
         
         return this.http
         .post< {}>(
             'http://localhost:3000/items/addItem',
-            postData
+            newItem
         )
        
 
@@ -56,44 +56,35 @@ export class ItemsService{
 
     }
 
-    removeItemRequest(){
+    removeItemRequest(itemID){
+        console.log(itemID);
 
-        this.http
+        return this.http
         .delete< {}>(
-            'http://localhost:3000/items/removeItem/1',
+            'http://localhost:3000/items/removeItem/'+itemID,
         
         )
-        .subscribe(responseData => {
-            console.log(responseData);
-        });
 
     }
 
-    withdrawItemRequest(){
+    withdrawItemRequest(withdrawAmount){
 
-        const putData = {id: "4", amount:"5"} 
-        this.http
+        return this.http
         .put< {}>(
             'http://localhost:3000/items/withdrawItem',
-            putData
+            withdrawAmount
         )
-        .subscribe(responseData => {
-            //console.log(responseData);
-        });
+       
 
     }
 
-    depositItemRequest(){
+    depositItemRequest(depositAmount){
 
-        const putData = {id: "4", amount:"6"} 
-        this.http
+        return this.http
         .put< {}>(
             'http://localhost:3000/items/depositItem',
-            putData
+            depositAmount
         )
-        .subscribe(responseData => {
-            //console.log(responseData);
-        });
 
     }
 

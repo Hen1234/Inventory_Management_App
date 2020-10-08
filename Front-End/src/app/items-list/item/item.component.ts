@@ -20,22 +20,22 @@ export class ItemComponent implements OnInit {
   }
 
   updateClick(event){
-    this.update.emit(this.item.id);
+    this.update.emit(this.item);
 
   }
 
   removeClick(event){
-    this.remove.emit(event);
+    this.remove.emit(this.item);
 
   }
 
   withdrawClick(event){
-    this.withdraw.emit(event);
+    this.withdraw.emit(this.item);
 
   }
 
   depositClick(event){
-    this.deposit.emit(event);
+    this.deposit.emit(this.item);
 
   }
 

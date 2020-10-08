@@ -34,7 +34,7 @@ function addItem(req, res, next){
 }
 
 function removeItem(req, res, next){
-  res.send(itemsService.removeItem(req.params.id));
+  res.json(itemsService.removeItem(req.params.id));
 }
 
 function withdrawItem(req, res, next){

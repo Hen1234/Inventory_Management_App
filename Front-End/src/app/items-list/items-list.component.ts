@@ -22,23 +22,23 @@ export class ItemsListComponent implements OnInit {
   
   }
 
-  updateClick(itemID){
-    this.updateItem.emit(itemID);
+  updateClick(item){
+    this.updateItem.emit(item);
 
   }
 
-  removeClick(event){
-    this.removeItem.emit(event);
+  removeClick(item){
+    this.removeItem.emit(item);
 
   }
 
-  withdrawClick(event){
-    this.withdrawItem.emit(event);
+  withdrawClick(item){
+    this.withdrawItem.emit(item);
 
   }
 
-  depositClick(event){
-    this.depositItem.emit(event);
+  depositClick(item){
+    this.depositItem.emit(item);
 
   }
 

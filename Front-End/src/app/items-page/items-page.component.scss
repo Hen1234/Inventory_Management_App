@@ -1,0 +1,19 @@
+.items-list{
+
+    width: 80%
+}
+
+:host{
+    width:100%;
+}
+
+.button-line{
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.primary-btn{
+    margin-right: 15px;
+}

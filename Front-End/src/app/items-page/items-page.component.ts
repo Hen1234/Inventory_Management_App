@@ -18,6 +18,7 @@ export class ItemsPageComponent implements OnInit {
  
   modalTitle;
   modalStatus;
+  modalRef;
 
   modalItem;
   errorMessage1 = '';
@@ -55,7 +56,7 @@ export class ItemsPageComponent implements OnInit {
   addItem(content){
     this.modalStatus = ModalStatus.AddItem;
     this.modalTitle = "Add Item";
-    this.modalService.open(content);
+    this.modalRef = this.modalService.open(content);
     this.errorMessage1 = "Please fill all the fiels to add a new item"; 
   }
 
@@ -70,7 +71,7 @@ export class ItemsPageComponent implements OnInit {
     this.modalItem = item;
     this.modalStatus = ModalStatus.UpdateItem;
     this.modalTitle = "Update Item";
-    this.modalService.open(content);
+    this.modalRef = this.modalService.open(content);
     this.errorMessage1 = "Please fill at least on of the fiels to update the item's details"; 
   }
 
@@ -91,7 +92,7 @@ export class ItemsPageComponent implements OnInit {
     this.modalItem = item;
     this.modalStatus = ModalStatus.WithdrawItem;
     this.modalTitle = "Withdraw Item";
-    this.modalService.open(content);
+    this.modalRef = this.modalService.open(content);
   }
 
   changeWithdrawValue(){
@@ -106,7 +107,7 @@ export class ItemsPageComponent implements OnInit {
     this.modalItem = item;
     this.modalStatus = ModalStatus.DepositItem;
     this.modalTitle = "Deposit Item";
-    this.modalService.open(content);
+    this.modalRef = this.modalService.open(content);
   }
 
   changeDepositValue(){
@@ -152,6 +153,8 @@ export class ItemsPageComponent implements OnInit {
         break;
 
     }
+
+    this.modalRef.close();
 
   }
 

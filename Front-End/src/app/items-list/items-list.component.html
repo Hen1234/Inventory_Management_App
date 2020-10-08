@@ -1,6 +1,13 @@
 
 <div class= "items-list">
   
+    <div class="headers">
+        <div class="column-1">Item ID</div>
+        <div class="column-2">Name</div>
+        <div class="column-3">Description</div>
+        <div class="column-4">Amount</div>
+        <div class="column-5">Actions</div>
+    </div>
     <app-item *ngFor= "let item of itemsArray" [item]= item
     
     (update)="updateClick($event)" (remove)= "removeClick($event)" (withdraw)= "withdrawClick($event)" (deposit)= "depositClick($event)"> 

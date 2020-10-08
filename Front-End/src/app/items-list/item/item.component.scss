@@ -1,0 +1,51 @@
+.item-properties{
+
+    display: flex;
+    border: 1px solid #f6f4f4;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+
+    .property{
+        &-1{
+            width: 120px;
+            padding-left:20px;
+        }
+        &-2{
+            width: 150px;
+        }
+        &-3{
+            width: 200px;
+        }
+        &-4{
+            width: 150px;
+        }
+
+    
+    }
+    
+}
+
+.actions-buttons{
+
+    display: flex;
+    
+}
+
+.action{
+
+    height: 30px;
+    width: 30px;
+    background-color: #edf1fd; 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+
+    cursor: pointer;
+}
+
+.tooltip-class .tooltip-inner{
+    background-color: #edf1fd ;
+
+}

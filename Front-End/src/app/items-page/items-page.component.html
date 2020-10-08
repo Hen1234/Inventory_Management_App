@@ -1,13 +1,14 @@
-<p>items-page works!</p>
+<div class="button-line">
+    <app-primary-btn class="primary-btn" [text]= "'Add Item'" (clickButton)="addItem(content)"></app-primary-btn>
+</div>
 
-<app-primary-btn [text]= "'Add New Item'" (clickButton)="addItem(content)"></app-primary-btn>
 
-<app-items-list [itemsArray]= "itemsArray"
+<app-items-list class="items-list" [itemsArray]= "itemsArray"
 (updateItem)="update($event,content)" (removeItem)= "remove($event)" (withdrawItem)= "withdraw($event,content)" (depositItem)= "deposit($event,content)" >
 </app-items-list>
 
 
-
+<!-- TODO: mark in 'red' if the value is invalid -->
 <ng-template #content let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">{{modalTitle}}</h4>
@@ -64,7 +65,7 @@
              <div class="errorMessage" *ngIf="errorMessage1">
                 {{errorMessage1}}
              </div>
-            <!-- TODO: mark in 'red' if the value is invalid -->
+            
 
         </div>
         <div class= "deposit-content" *ngIf="modalStatus===ModalStatus.DepositItem">
@@ -75,7 +76,6 @@
              <div class="errorMessage" *ngIf="errorMessage1">
                 {{errorMessage1}}
              </div>
-            <!-- TODO: mark in 'red' if the value is invalid -->
 
         </div>
      

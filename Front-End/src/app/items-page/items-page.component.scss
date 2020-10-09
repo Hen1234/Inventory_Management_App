@@ -10,10 +10,32 @@
 .button-line{
     width:100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-bottom: 15px;
 }
 
-.primary-btn{
+.add-item-btn{
     margin-right: 15px;
+}
+
+textarea {
+    resize: none;
+}
+
+.items-num{
+    height: 32px;
+    width: fit-content;
+    border-radius: 0.25rem;
+    padding: 0 8px;
+    font-size: 18px;
+    display: flex;
+    margin-left:15px;
+    background-color: #007bff;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    .badge{
+        height: 20px;
+        margin-left: 5px;
+    }
 }

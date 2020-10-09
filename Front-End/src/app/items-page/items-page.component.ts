@@ -24,13 +24,13 @@ export class ItemsPageComponent implements OnInit {
   errorMessage1 = '';
   errorMessage2 = '';
 
-  withdrawAmountValue = 0;
-  depositAmountValue = 0;
-  addNameValue = "";
-  addDescriptionValue="";
+  withdrawAmountValue;
+  depositAmountValue;
+  addNameValue;
+  addDescriptionValue;
   addCountValue;
-  updateNameValue = "";
-  updateDescriptionValue="";
+  updateNameValue;
+  updateDescriptionValue;
    
   //for the html to know ModalStaus enum
   ModalStatus = ModalStatus;
@@ -57,27 +57,28 @@ export class ItemsPageComponent implements OnInit {
     this.modalStatus = ModalStatus.AddItem;
     this.modalTitle = "Add Item";
     this.modalRef = this.modalService.open(content);
-    this.errorMessage1 = "Please fill all the fiels to add a new item"; 
+    this.errorMessage1 = "Note: please fill all the fiels to add a new item"; 
   }
 
 
   changeAddValue(){
     this.errorMessage2 = this.addCountValue < 0 ? "The amount value is invalid" : ""; 
     this.errorMessage1 = !this.addNameValue || !this.addDescriptionValue || !this.addCountValue ? 
-    "Please fill all the fiels to add a new item" : "";
+    "Note: please fill all the fiels to add a new item" : "";
   }
 
   update(item, content){
     this.modalItem = item;
+    this.updateNameValue = this.modalItem.name;
+    this.updateDescriptionValue = this.modalItem.description;
     this.modalStatus = ModalStatus.UpdateItem;
     this.modalTitle = "Update Item";
     this.modalRef = this.modalService.open(content);
-    this.errorMessage1 = "Please fill at least on of the fiels to update the item's details"; 
   }
 
   changeUpdateValue(){
-    this.errorMessage1 = !this.updateNameValue && !this.updateDescriptionValue ? 
-    "Please fill at least on of the fiels to update the item's details" : "";
+    this.errorMessage1 = !this.updateNameValue || !this.updateDescriptionValue ? 
+    "Empty fields are invalid" : "";
   }
 
   remove(item){
@@ -131,7 +132,7 @@ export class ItemsPageComponent implements OnInit {
         this.itemService.withdrawItemRequest(withdrawAmount).subscribe(responseData => {
           this.itemsArray = this.itemsArray.map(item => item.id === this.modalItem.id ? responseData : item); 
         })
-        this.withdrawAmountValue=0;
+        this.withdrawAmountValue="";
         break;
 
       case ModalStatus.UpdateItem:
@@ -153,6 +154,22 @@ export class ItemsPageComponent implements OnInit {
         break;
 
     }
+
+    this.cancelChanges();
+
+  }
+
+  cancelChanges(){
+
+    this.withdrawAmountValue = "";
+    this.depositAmountValue = "";
+    this.addNameValue = "";
+    this.addDescriptionValue = "";
+    this.addCountValue = "";
+    this.updateNameValue = "";
+    this.updateDescriptionValue = "";
+    this.errorMessage1 = "";
+    this.errorMessage2 = "";
 
     this.modalRef.close();
 

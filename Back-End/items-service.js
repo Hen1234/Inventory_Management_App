@@ -20,7 +20,7 @@ class ItemsService{
 
   
     getItemByID(id){
-        var givenItem = this.items["item"+id];
+        const givenItem = this.items["item"+id];
         if(givenItem){
             return givenItem;
         }
@@ -70,7 +70,7 @@ class ItemsService{
 
     withdrawItem(id, amount){
 
-        var currentCount = 0;
+        let currentCount = 0;
         if(this.items[id]){
            currentCount = this.items[id].count;
            if(currentCount >= amount){

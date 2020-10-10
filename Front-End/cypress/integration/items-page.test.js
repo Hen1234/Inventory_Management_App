@@ -12,7 +12,7 @@ describe('itmes tests', ()=>{
         cy.get('#add-input-amount').type('5').should('have.value', '5');
         cy.get('#save-button').click();
         //Wait the DOM to be updated
-        cy.contains('temporary item for test');
+        cy.contains('temporary item for test- delete after each');
         
     })
 

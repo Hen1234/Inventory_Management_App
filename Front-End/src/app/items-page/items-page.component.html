@@ -1,91 +1,118 @@
-<div class="button-line">
-    <div class="items-num">
-        Number of Items <span class="badge badge-light">{{itemsArray.length}}</span>
+<div class="page-container">
+
+    <div class="title">
+        <p> Inventory Management App </p>
     </div>
-    <app-primary-btn class="add-item-btn" [text]= "'Add Item'" (clickButton)="addItem(content)"></app-primary-btn>
+    <div class="button-line">
+        <div class="items-num">
+            Number of Items <span class="badge badge-light">{{itemsArray.length}}</span>
+        </div>
+        <app-primary-btn class="add-item-btn" [text]= "'Add Item'" (clickButton)="addItem(content)"></app-primary-btn>
+    </div>
+    
+    <div class="items-list" *ngIf="itemsArray.length > 0; else emptyState">
+        <app-items-list  [itemsArray]= "itemsArray"
+        (updateItem)="updateItem($event,content)" (removeItem)= "removeItem($event)" (withdrawItem)= "withdrawItem($event,content)" (depositItem)= "depositItem($event,content)" >
+        </app-items-list>
+    </div>
+    
+    <ng-template #emptyState>
+        <div class="empty-state-container">
+            <img  src="../../assets/empty_state_copy.webp" class="empty-image">
+            <div>No Items Found</div>
+        </div> 
+    </ng-template>
+    
+    <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">{{modalTitle}}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="resetChanges()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class= "add-content" *ngIf="modalStatus===ModalStatus.AddItem">
+                <div class="input-line">
+                    <label class="label-class">Item Name:</label>
+                    <input class="input-class" id="add-input-name" placeholder="Enter a name" type="text" [(ngModel)]= "addNameValue"
+                    (ngModelChange)= "changeAddItemValue()">
+                </div>
+               <div class="input-line">
+                    <label class="label-class">Item Description:</label>
+                    <textarea class="input-class" id="add-input-description" placeholder="Enter a description" [(ngModel)]= "addDescriptionValue"
+                    (ngModelChange)= "changeAddItemValue()"></textarea>
+               </div>
+                <div class="input-line">
+                    <label class="label-class">Item Count:</label>
+                    <input class="input-class amount-class" id="add-input-amount" placeholder="Enter an amount" type="number" min="0" [(ngModel)]= "addCountValue"
+                    (ngModelChange)= "changeAddItemValue()">
+                </div>
+                <div class="messages">
+                    <div  *ngIf="noteMessage || errorMessage">
+                        <div class="note-message">{{noteMessage}}</div>
+                        <div class="error-message">{{errorMessage}}</div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class= "update-content" *ngIf="modalStatus===ModalStatus.UpdateItem">
+                <div class="input-line">
+                    <label class="label-class">New Name:</label>
+                    <input class="input-class" id="update-input-name" placeholder="Enter a new name" 
+                    type="text" [(ngModel)]= "updateNameValue"
+                    (ngModelChange)= "changeUpdateItemValue()">
+                </div>
+               <div class="input-line">
+                    <label class="label-class">New Description:</label>
+                    <textarea class="input-class" id="update-input-description" placeholder="Enter a new description" 
+                    [(ngModel)]= "updateDescriptionValue"
+                    (ngModelChange)= "changeUpdateItemValue()" rows="3"></textarea>
+               </div>
+               <div class="messages">
+                    <div class="error-message" *ngIf="errorMessage">
+                        {{errorMessage}}
+                    </div>
+               </div>
+               
+            </div>
+            <div class= "withdraw-content" *ngIf="modalStatus===ModalStatus.WithdrawItem">
+                <div class="label-class input-line"> Item Count: {{modalItem.count}}</div>
+                <div class="input-line">
+                    <label class="label-class">Withdraw Amount:</label>
+                    <input class="input-class amount-class" id="withdraw-input" placeholder="Enter an amount" type="number" min="0" [max]="modalItem.count"  [(ngModel)]= "withdrawAmountValue"
+                    (ngModelChange)= "changeWithdrawItemValue()">
+                </div>
+                <div class="messages">
+                    <div class="error-message" *ngIf="errorMessage">
+                        {{errorMessage}}
+                    </div>
+                </div>
+            </div>
+            <div class= "deposit-content" *ngIf="modalStatus===ModalStatus.DepositItem">
+                <div class="label-class input-line"> Item Count: {{modalItem.count}}</div>
+                <div class="input-line">
+                    <label class="label-class">Deposit Amount:</label>
+                    <input class="input-class amount-class" id="deposit-input" placeholder="Enter an amount" type="number" min="0" [(ngModel)]= "depositAmountValue"
+                    (ngModelChange)= "changeDepositItemValue()">
+                </div>
+                <div class="messages">
+                    <div class="error-message" *ngIf="errorMessage">
+                        {{errorMessage}}
+                    </div>
+                </div>
+            </div>
+         
+        </div>
+        <div class="modal-footer">
+          <button id="cancel-button" type="button"  class="btn btn-outline-secondary" (click)="resetChanges()" >Cancel</button>
+          <button id="save-button" [ngClass]= "{'btn-outline-primary':!errorMessage && !noteMessage && !emptyValuesWithdrawOrDeposit,
+          'disable-save':errorMessage || noteMessage || emptyValuesWithdrawOrDeposit }"
+          type="button" [disabled]= "errorMessage || noteMessage || emptyValuesWithdrawOrDeposit" class="btn btn-outline-primary" (click)="saveChanges()">Save</button>
+        </div>
+      </ng-template>
+
 </div>
 
-
-<app-items-list class="items-list" [itemsArray]= "itemsArray"
-(updateItem)="updateItem($event,content)" (removeItem)= "removeItem($event)" (withdrawItem)= "withdrawItem($event,content)" (depositItem)= "depositItem($event,content)" >
-</app-items-list>
-
-
-<!-- TODO: mark in 'red' if the value is invalid -->
-<ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">{{modalTitle}}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="resetChanges()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-        <div class= "add-content" *ngIf="modalStatus===ModalStatus.AddItem">
-            <div>
-                <label>Item Name:</label>
-                <input id="add-input-name" type="text" [(ngModel)]= "addNameValue"
-                (ngModelChange)= "changeAddItemValue()">
-            </div>
-           <div>
-                <label>Item Description:</label>
-                <textarea id="add-input-description" [(ngModel)]= "addDescriptionValue"
-                (ngModelChange)= "changeAddItemValue()"></textarea>
-           </div>
-            <div>
-                <label>Item Amount:</label>
-                <input id="add-input-amount" type="number" min="0" [(ngModel)]= "addCountValue"
-                (ngModelChange)= "changeAddItemValue()">
-                <div class="errorMessage" *ngIf="errorMessage1 || errorMessage2">
-                    <div>{{errorMessage1}}</div>
-                    <div>{{errorMessage2}}</div>
-                </div>
-
-            </div>
-        </div>
-        <div class= "update-content" *ngIf="modalStatus===ModalStatus.UpdateItem">
-            <div>
-                <label>New Item Name:</label>
-                <input id="update-input-name" type="text" [(ngModel)]= "updateNameValue"
-                (ngModelChange)= "changeUpdateItemValue()">
-            </div>
-           <div>
-                <label>New Item Description:</label>
-                <textarea id="update-input-description" [(ngModel)]= "updateDescriptionValue"
-                (ngModelChange)= "changeUpdateItemValue()" rows="3"></textarea>
-           </div>
-           <div class="errorMessage" *ngIf="errorMessage1">
-                {{errorMessage1}}
-            </div>
-
-        </div>
-        <div class= "withdraw-content" *ngIf="modalStatus===ModalStatus.WithdrawItem">
-            <div> Item Amount: {{modalItem.count}}</div>
-            <label>New Item Amount:</label>
-            <input id="withdraw-input" type="number" min="0" [max]="modalItem.count"  [(ngModel)]= "withdrawAmountValue"
-             (ngModelChange)= "changeWithdrawItemValue()">
-             <div class="errorMessage" *ngIf="errorMessage1">
-                {{errorMessage1}}
-             </div>
-            
-
-        </div>
-        <div class= "deposit-content" *ngIf="modalStatus===ModalStatus.DepositItem">
-            <div> Item Amount: {{modalItem.count}}</div>
-            <label>New Item Amount:</label>
-            <input id="deposit-input" type="number" min="0" [(ngModel)]= "depositAmountValue"
-             (ngModelChange)= "changeDepositItemValue()">
-             <div class="errorMessage" *ngIf="errorMessage1">
-                {{errorMessage1}}
-             </div>
-
-        </div>
-     
-    </div>
-    <div class="modal-footer">
-      <button id="cancel-button" type="button"  class="btn btn-outline-secondary" (click)="resetChanges()" >Cancel</button>
-      <button id="save-button" type="button" [disabled]= "errorMessage1 || errorMessage2" class="btn btn-outline-primary" (click)="saveChanges()">Save</button>
-    </div>
-  </ng-template>
   
   
  

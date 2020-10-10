@@ -8,11 +8,8 @@ class ItemsService{
     constructor(){
         
         this.items = {};
-        this.itemCounter = 1;
+        this.itemCounter = 0;
     }
-
-    //TODO: return message on "else"- "id doesn't exist" or "withdraw is unvalid" 
-    //TODO: change to- res.json
     
     /**
      * The function returns the items list
@@ -26,12 +23,14 @@ class ItemsService{
      * @param {*} id 
      */
     getItemByID(id){
-        const givenItem = this.items["item"+id];
+        const givenItem = this.items[id];
         if(givenItem){
             return givenItem;
         }
         else{
-            
+            const error= new Error('Item Not Found');
+            error.status = 404;
+            throw error;
         }
     }
 
@@ -42,15 +41,11 @@ class ItemsService{
      * @param {*} description 
      */
     updateItem(id, name, description){
-        if(this.items[id]){
-            this.items[id].name = name;
-            this.items[id].description = description;  
-            return {id, name, description, count: (Number) (this.items[id].count)} 
-            
-        }
-        else{
-            
-        }
+        const item = this.getItemByID(id);
+        
+        item.name = name;
+        item.description = description;  
+        return {id, name, description, count: (Number) (item.count)}      
     }
 
     /**
@@ -59,14 +54,11 @@ class ItemsService{
      * @param {*} description 
      * @param {*} count 
      */
-    addItem(name, description, count){
-        
+    addItem(name, description, count){ 
+        this.itemCounter++;    
         const id = "item"+this.itemCounter;
         this.items[id] = {name, description, count: Number(count)};
-        this.itemCounter++;
-        return {id,  name, description, count: Number(count)}
-        
-    
+        return {id,  name, description, count: Number(count)};
     }
 
     /**
@@ -74,15 +66,8 @@ class ItemsService{
      * @param {*} id 
      */
     removeItem(id){
-
-        if(this.items[id]){
-            delete this.items[id];
-            return id;
-
-        }
-        else{
-           
-        }
+        delete this.items[id];
+        return id;
     }
 
     /**
@@ -91,22 +76,19 @@ class ItemsService{
      * @param {*} amount 
      */
     withdrawItem(id, amount){
+        const item = this.getItemByID(id);
+        return this.checkWithdrawValidAmount(amount, item, id);
+    }
 
-        let currentCount = 0;
-        if(this.items[id]){
-           currentCount = this.items[id].count;
-           if(currentCount >= amount){
-                this.items[id].count = currentCount - Number(amount); 
-                return {id, name:this.items[id].name, description:this.items[id].description, count:this.items[id].count}
-             
-           }else{
-              
-           }
+    checkWithdrawValidAmount(amount, item, id){
+        if(item.count >= amount && amount >= 0){
+            item.count = item.count - Number(amount); 
+            return {id, name:item.name, description:item.description, count:item.count}     
+        }else{
+            const error= new Error('Withdraw Amount is Invalid');
+            error.status = 400;
+            throw error;  
         }
-        else{
-          
-        }
-
     }
 
     /**
@@ -115,15 +97,19 @@ class ItemsService{
      * @param {*} amount 
      */
     depositItem(id, amount){
+        const item = this.getItemByID(id);
+        return this.checkDepositValidAmount(amount, item, id);         
+    }
 
-        if(this.items[id]){
-           this.items[id].count = this.items[id].count + Number(amount);
-           return {id, name:this.items[id].name, description:this.items[id].description, count:this.items[id].count}         
+    checkDepositValidAmount(amount, item, id){
+        if(amount >= 0){
+            item.count = item.count + Number(amount);
+            return {id, name:item.name, description:item.description, count:item.count}     
+        }else{
+            const error= new Error('Deposit Amount is Invalid');
+            error.status = 400;
+            throw error;  
         }
-        else{
-          
-        }
-
     }
     
 }

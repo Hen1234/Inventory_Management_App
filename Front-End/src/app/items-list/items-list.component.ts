@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
-import { ItemsService } from '../items-service';
+import { Item } from './item/item.config';
 
 @Component({
   selector: 'app-items-list',
@@ -9,13 +9,13 @@ import { ItemsService } from '../items-service';
 
 export class ItemsListComponent implements OnInit {
 
-  @Input() itemsArray;
+  @Input() itemsArray: Item[];
   @Output() updateItem = new EventEmitter();
   @Output() removeItem = new EventEmitter();
   @Output() withdrawItem = new EventEmitter();
   @Output() depositItem = new EventEmitter();
 
-  constructor(private itemService: ItemsService) {}
+  constructor() {}
 
   ngOnInit(): void {
 

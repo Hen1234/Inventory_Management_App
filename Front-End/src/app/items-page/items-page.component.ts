@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { element } from 'protractor';
+import { Component, OnInit} from '@angular/core';
 import { ItemsService } from '../items-service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { ModalStatus } from './items-page.config';
-import { ThrowStmt } from '@angular/compiler';
+import { Item } from '../items-list/item/item.config';
 
 @Component({
   selector: 'app-items-page',
@@ -14,15 +13,15 @@ import { ThrowStmt } from '@angular/compiler';
 
 export class ItemsPageComponent implements OnInit {
 
-  itemsArray = [] ;
+  itemsArray: Item[] = [] ;
  
   modalTitle;
   modalStatus;
   modalRef;
 
   modalItem;
-  errorMessage1 = '';
-  errorMessage2 = '';
+  errorMessage;
+  noteMessage;
 
   withdrawAmountValue;
   depositAmountValue;
@@ -31,6 +30,8 @@ export class ItemsPageComponent implements OnInit {
   addCountValue;
   updateNameValue;
   updateDescriptionValue;
+
+  emptyValuesWithdrawOrDeposit;
    
   //TODO: delete- comment for me- For the html to know ModalStaus enum
   ModalStatus = ModalStatus;
@@ -57,13 +58,13 @@ export class ItemsPageComponent implements OnInit {
     this.modalStatus = ModalStatus.AddItem;
     this.modalTitle = "Add Item";
     this.modalRef = this.modalService.open(content);
-    this.errorMessage1 = "Note: please fill all the fiels to add a new item"; 
+    this.noteMessage = "Note: please fill all the fiels to add a new item"; 
   }
 
   changeAddItemValue(){
-    this.errorMessage2 = this.addCountValue < 0 ? "The amount value is invalid" : ""; 
-    this.errorMessage1 = !this.addNameValue || !this.addDescriptionValue || !this.addCountValue ? 
-    "Note: please fill all the fiels to add a new item" : "";
+    this.errorMessage = this.addCountValue < 0 ? "The amount value is invalid" : ""; 
+    this.noteMessage = !this.addNameValue || !this.addDescriptionValue || 
+    (this.addCountValue !== 0 && !this.addCountValue) ? "Note: please fill all the fiels to add a new item" : "";
   }
 
   updateItem(item, content){
@@ -76,8 +77,9 @@ export class ItemsPageComponent implements OnInit {
   }
 
   changeUpdateItemValue(){
-    this.errorMessage1 = !this.updateNameValue || !this.updateDescriptionValue ? 
+    this.errorMessage = !this.updateNameValue || !this.updateDescriptionValue ? 
     "Empty fields are invalid" : "";
+
   }
 
   removeItem(item){
@@ -92,14 +94,13 @@ export class ItemsPageComponent implements OnInit {
     this.modalStatus = ModalStatus.WithdrawItem;
     this.modalTitle = "Withdraw Item";
     this.modalRef = this.modalService.open(content);
+    this.emptyValuesWithdrawOrDeposit = true;
   }
 
   changeWithdrawItemValue(){
-
-    console.log(this.withdrawAmountValue);
-    this.errorMessage1 = this.modalItem.count < this.withdrawAmountValue || this.withdrawAmountValue < 0
-     ? "The amount value is invalid" : ""; 
-    
+    this.errorMessage = this.modalItem.count < this.withdrawAmountValue || this.withdrawAmountValue < 0 
+    ? "The amount value is invalid" : ""; 
+    this.emptyValuesWithdrawOrDeposit = !this.withdrawAmountValue;
   }
 
   depositItem(item, content){
@@ -107,10 +108,12 @@ export class ItemsPageComponent implements OnInit {
     this.modalStatus = ModalStatus.DepositItem;
     this.modalTitle = "Deposit Item";
     this.modalRef = this.modalService.open(content);
+    this.emptyValuesWithdrawOrDeposit = true;
   }
 
   changeDepositItemValue(){
-    this.errorMessage1 = this.depositAmountValue < 0 ? "The amount value is invalid" : ""; 
+    this.errorMessage = this.depositAmountValue < 0 ? "The amount value is invalid" : ""; 
+    this.emptyValuesWithdrawOrDeposit = !this.depositAmountValue;
   }
 
 
@@ -119,7 +122,7 @@ export class ItemsPageComponent implements OnInit {
 
       case ModalStatus.AddItem:
         let newItem = {name: this.addNameValue, description: this.addDescriptionValue, count: this.addCountValue};
-        this.itemService.addItemRequest(newItem).subscribe(responseData => {
+        this.itemService.addItemRequest(newItem).subscribe((responseData:Item) => {
           this.itemsArray.push(responseData);
         });
         this.addNameValue=""; this.addDescriptionValue=""; this.addCountValue="";
@@ -127,7 +130,7 @@ export class ItemsPageComponent implements OnInit {
       
       case ModalStatus.WithdrawItem:
         let withdrawAmount = {id: this.modalItem.id, amount: this.withdrawAmountValue};
-        this.itemService.withdrawItemRequest(withdrawAmount).subscribe(responseData => {
+        this.itemService.withdrawItemRequest(withdrawAmount).subscribe((responseData:Item) => {
           this.itemsArray = this.itemsArray.map(item => item.id === this.modalItem.id ? responseData : item); 
         })
         this.withdrawAmountValue="";
@@ -137,7 +140,7 @@ export class ItemsPageComponent implements OnInit {
         let updateName = this.updateNameValue || this.modalItem.name;
         let updateDescription = this.updateDescriptionValue || this.modalItem.description;
         let update = {id: this.modalItem.id, name:updateName,description: updateDescription};
-        this.itemService.updateItemRequest(update).subscribe(responseData => {
+        this.itemService.updateItemRequest(update).subscribe((responseData:Item) => {
           this.itemsArray = this.itemsArray.map(item => item.id === this.modalItem.id ? responseData : item); 
          });
         this.updateNameValue=""; this.updateDescriptionValue="";
@@ -145,7 +148,7 @@ export class ItemsPageComponent implements OnInit {
 
       case ModalStatus.DepositItem:
         let depositAmount = {id: this.modalItem.id, amount: this.depositAmountValue};
-        this.itemService.depositItemRequest(depositAmount).subscribe(responseData => {
+        this.itemService.depositItemRequest(depositAmount).subscribe((responseData:Item) => {
           this.itemsArray = this.itemsArray.map(item => item.id === this.modalItem.id ? responseData : item); 
         })
         this.depositAmountValue=0;
@@ -166,8 +169,9 @@ export class ItemsPageComponent implements OnInit {
     this.addCountValue = "";
     this.updateNameValue = "";
     this.updateDescriptionValue = "";
-    this.errorMessage1 = "";
-    this.errorMessage2 = "";
+    this.errorMessage= "";
+    this.noteMessage= "";
+    this.emptyValuesWithdrawOrDeposit = false;
 
     this.modalRef.close();
 

@@ -1,14 +1,13 @@
 <div class="button-line">
     <div class="items-num">
         Number of Items <span class="badge badge-light">{{itemsArray.length}}</span>
-        <!-- <span class="sr-only">unread messages</span> -->
     </div>
     <app-primary-btn class="add-item-btn" [text]= "'Add Item'" (clickButton)="addItem(content)"></app-primary-btn>
 </div>
 
 
 <app-items-list class="items-list" [itemsArray]= "itemsArray"
-(updateItem)="update($event,content)" (removeItem)= "remove($event)" (withdrawItem)= "withdraw($event,content)" (depositItem)= "deposit($event,content)" >
+(updateItem)="updateItem($event,content)" (removeItem)= "removeItem($event)" (withdrawItem)= "withdrawItem($event,content)" (depositItem)= "depositItem($event,content)" >
 </app-items-list>
 
 
@@ -16,7 +15,7 @@
 <ng-template #content let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">{{modalTitle}}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="cancelChanges()">
+      <button type="button" class="close" aria-label="Close" (click)="resetChanges()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -25,17 +24,17 @@
             <div>
                 <label>Item Name:</label>
                 <input id="add-input-name" type="text" [(ngModel)]= "addNameValue"
-                (ngModelChange)= "changeAddValue()">
+                (ngModelChange)= "changeAddItemValue()">
             </div>
            <div>
                 <label>Item Description:</label>
                 <textarea id="add-input-description" [(ngModel)]= "addDescriptionValue"
-                (ngModelChange)= "changeAddValue()"></textarea>
+                (ngModelChange)= "changeAddItemValue()"></textarea>
            </div>
             <div>
                 <label>Item Amount:</label>
                 <input id="add-input-amount" type="number" min="0" [(ngModel)]= "addCountValue"
-                (ngModelChange)= "changeAddValue()">
+                (ngModelChange)= "changeAddItemValue()">
                 <div class="errorMessage" *ngIf="errorMessage1 || errorMessage2">
                     <div>{{errorMessage1}}</div>
                     <div>{{errorMessage2}}</div>
@@ -45,18 +44,14 @@
         </div>
         <div class= "update-content" *ngIf="modalStatus===ModalStatus.UpdateItem">
             <div>
-                <!-- <div> Item Name: {{modalItem.name}}</div> -->
                 <label>New Item Name:</label>
                 <input id="update-input-name" type="text" [(ngModel)]= "updateNameValue"
-                (ngModelChange)= "changeUpdateValue()">
+                (ngModelChange)= "changeUpdateItemValue()">
             </div>
            <div>
-                <!-- <div> Item Description: {{modalItem.description}}</div> -->
                 <label>New Item Description:</label>
                 <textarea id="update-input-description" [(ngModel)]= "updateDescriptionValue"
-                (ngModelChange)= "changeUpdateValue()" rows="3"></textarea>
-                <!-- <input type="text" [(ngModel)]= "updateDescriptionValue"
-                (ngModelChange)= "changeUpdateValue()"> -->
+                (ngModelChange)= "changeUpdateItemValue()" rows="3"></textarea>
            </div>
            <div class="errorMessage" *ngIf="errorMessage1">
                 {{errorMessage1}}
@@ -67,7 +62,7 @@
             <div> Item Amount: {{modalItem.count}}</div>
             <label>New Item Amount:</label>
             <input id="withdraw-input" type="number" min="0" [max]="modalItem.count"  [(ngModel)]= "withdrawAmountValue"
-             (ngModelChange)= "changeWithdrawValue()">
+             (ngModelChange)= "changeWithdrawItemValue()">
              <div class="errorMessage" *ngIf="errorMessage1">
                 {{errorMessage1}}
              </div>
@@ -78,7 +73,7 @@
             <div> Item Amount: {{modalItem.count}}</div>
             <label>New Item Amount:</label>
             <input id="deposit-input" type="number" min="0" [(ngModel)]= "depositAmountValue"
-             (ngModelChange)= "changeDepositValue()">
+             (ngModelChange)= "changeDepositItemValue()">
              <div class="errorMessage" *ngIf="errorMessage1">
                 {{errorMessage1}}
              </div>
@@ -87,7 +82,7 @@
      
     </div>
     <div class="modal-footer">
-      <button id="cancel-button" type="button"  class="btn btn-outline-secondary" (click)="cancelChanges()" >Cancel</button>
+      <button id="cancel-button" type="button"  class="btn btn-outline-secondary" (click)="resetChanges()" >Cancel</button>
       <button id="save-button" type="button" [disabled]= "errorMessage1 || errorMessage2" class="btn btn-outline-primary" (click)="saveChanges()">Save</button>
     </div>
   </ng-template>

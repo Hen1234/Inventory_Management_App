@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ItemsService = require('../items-service');
 
-//create new itemService object
+//Create new itemService object
 const itemsService = new ItemsService();
 
 //REST APIs 
@@ -13,8 +13,6 @@ router.post('/addItem', addItem);
 router.delete('/removeItem/:id', removeItem);
 router.put('/withdrawItem', withdrawItem);
 router.put('/depositItem', depositItem);
-
- //TODO: remove the res.send in the post/delete/put requests
 
 
 function getItems(req, res, next) {

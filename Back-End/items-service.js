@@ -1,6 +1,6 @@
 class ItemsService{
 
-    //Items vocabulary
+    //Items list
     items;
 
     itemCounter;
@@ -14,11 +14,17 @@ class ItemsService{
     //TODO: return message on "else"- "id doesn't exist" or "withdraw is unvalid" 
     //TODO: change to- res.json
     
+    /**
+     * The function returns the items list
+     */
     getItems(){
         return this.items;
     }
 
-  
+    /**
+     * The function returns the item with the given ID
+     * @param {*} id 
+     */
     getItemByID(id){
         const givenItem = this.items["item"+id];
         if(givenItem){
@@ -29,10 +35,13 @@ class ItemsService{
         }
     }
 
-    
+    /**
+     * The function updates name and description of the item with the given ID
+     * @param {*} id 
+     * @param {*} name 
+     * @param {*} description 
+     */
     updateItem(id, name, description){
-
-        
         if(this.items[id]){
             this.items[id].name = name;
             this.items[id].description = description;  
@@ -44,16 +53,26 @@ class ItemsService{
         }
     }
 
+    /**
+     * The function adds a new item to the items list
+     * @param {*} name 
+     * @param {*} description 
+     * @param {*} count 
+     */
     addItem(name, description, count){
         
         const id = "item"+this.itemCounter;
         this.items[id] = {name, description, count: Number(count)};
         this.itemCounter++;
-        return {id: id,  name, description, count: Number(count)}
+        return {id,  name, description, count: Number(count)}
         
     
     }
 
+    /**
+     * The function removes the item with the given ID from the items list
+     * @param {*} id 
+     */
     removeItem(id){
 
         if(this.items[id]){
@@ -66,8 +85,11 @@ class ItemsService{
         }
     }
 
-   
-
+    /**
+     * The function gets an amount for withdrawing and updates the item's amount with the given ID accordingly 
+     * @param {*} id 
+     * @param {*} amount 
+     */
     withdrawItem(id, amount){
 
         let currentCount = 0;
@@ -87,6 +109,11 @@ class ItemsService{
 
     }
 
+    /**
+     * The function gets an amount for depositing and updates the item's amount with the given ID accordingly 
+     * @param {*} id 
+     * @param {*} amount 
+     */
     depositItem(id, amount){
 
         if(this.items[id]){

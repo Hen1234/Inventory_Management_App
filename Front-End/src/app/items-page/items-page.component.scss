@@ -1,7 +1,4 @@
 .page-container{
-    // display: flex;
-    // align-items: center;
-    // flex-direction: column;
     padding:0 15px;
     min-width: 1250px;
 
@@ -10,7 +7,6 @@
 .title{
     display: flex;
     margin-top: 15px;
-    // justify-content: center;
     align-items: center;
     padding-left: 15px;
     margin-bottom: 15px;
@@ -24,10 +20,7 @@
 
 
 .items-list{
-
     width:100%;
-    
-    // width: 80%
 }
 
 
@@ -38,9 +31,6 @@
     margin-bottom: 15px;
 }
 
-.add-item-btn{
-    // margin-right: 15px;
-}
 
 textarea {
     resize: none;
@@ -53,7 +43,6 @@ textarea {
     padding: 0 8px;
     font-size: 18px;
     display: flex;
-    // margin-left:15px;
     background-color: #007bff;
     color: white;
     align-items: center;
@@ -65,7 +54,6 @@ textarea {
 }
 
 
-
 .input-line{
     display: flex;
     margin-bottom: 20px;
@@ -74,7 +62,6 @@ textarea {
 .label-class{
     width: 150px;
     font-weight: bold;
-
 }
 
 .input-class{
@@ -85,7 +72,6 @@ textarea {
 
 .amount-class{
     width: 150px;
-
 }
 
 #add-input-description{

@@ -1,8 +1,8 @@
-describe('itmes tests', ()=>{
+describe('Item actions tests', ()=>{
 
     beforeEach(() => {
         //TODO: change to 3000 
-        cy.visit('http://localhost:3000/');
+        cy.visit('http://localhost:4200/');
          //TODO: decide if to remove it and then to remove the last from the last line each it
         //Create a temporary item to ensure the name of the last item in the list
         //won't be the same as the name of the item created for the test
@@ -16,13 +16,16 @@ describe('itmes tests', ()=>{
         
     })
 
-    afterEach(() => {
-        cy.get("app-item .remove-button").last().click();
-        cy.contains('temporary item for test- delete after each').should('not.exist');
+   
+    it('Visit the Inventory Management App', () => {
+        cy.contains("Inventory Management Application"); 
     })
-     
-    it('Visits the Inventory Management App', () => {
-        cy.contains("Inventory Management App"); 
+
+
+    it('Number of items', ()=>{
+        cy.get("app-item").its('length').then(listLength =>{
+            cy.get('#badge-number').should("have.text",listLength);
+        });
     })
 
     describe('Add & Remove item tests', ()=>{
@@ -88,7 +91,7 @@ describe('itmes tests', ()=>{
             cy.contains("Empty fields are invalid");
             cy.get("#cancel-button").click();
             cy.get("app-item .remove-button").last().click();
-            cy.get("app-item").last().contains('update item tes2t').should('not.exist');
+            cy.get("app-item").last().contains('update item test2').should('not.exist');
         })
 
     })
@@ -178,5 +181,25 @@ describe('itmes tests', ()=>{
 
     })
 
+    afterEach(() => {
+        cy.get("app-item .remove-button").last().click();
+        cy.contains('temporary item for test- delete after each').should('not.exist');
+    })
+
+  
+
     
 })
+
+
+   
+
+        
+ 
+        
+    
+
+
+
+
+

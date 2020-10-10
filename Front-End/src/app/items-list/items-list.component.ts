@@ -18,33 +18,22 @@ export class ItemsListComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-
-  
   }
 
   updateClick(item){
     this.updateItem.emit(item);
-
   }
 
   removeClick(item){
     this.removeItem.emit(item);
-
   }
 
   withdrawClick(item){
     this.withdrawItem.emit(item);
-
   }
 
   depositClick(item){
     this.depositItem.emit(item);
-
   }
-
-
-
-  
-
 
 }

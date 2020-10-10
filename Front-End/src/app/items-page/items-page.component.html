@@ -5,7 +5,7 @@
     </div>
     <div class="button-line">
         <div class="items-num">
-            Number of Items <span class="badge badge-light">{{itemsArray.length}}</span>
+            Number of Items <span class="badge badge-light" id="badge-number">{{itemsArray.length}}</span>
         </div>
         <app-primary-btn class="add-item-btn" [text]= "'Add Item'" (clickButton)="addItem(content)"></app-primary-btn>
     </div>

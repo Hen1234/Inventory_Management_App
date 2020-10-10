@@ -33,7 +33,7 @@ export class ItemsPageComponent implements OnInit {
 
   emptyValuesWithdrawOrDeposit;
    
-  //TODO: delete- comment for me- For the html to know ModalStaus enum
+  //For the html to know ModalStaus enum
   ModalStatus = ModalStatus;
  
   constructor(private itemService: ItemsService, private modalService: NgbModal) {}

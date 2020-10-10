@@ -8,7 +8,6 @@
     align-items: center;
     padding: 7px 0;
     
-  
     .property{
         &-1{
             width: 150px;
@@ -34,22 +33,16 @@
             min-width: 220px;
         
         }
-
-    
     }
-    
 }
 
 .actions-buttons{
-
     display: flex;  
-    // justify-content: flex-end;
     float: right;
     align-self: flex-end; 
 }
 
 .action{
-
     height: 30px;
     width: 30px;
     background-color: #edf1fd; 
@@ -58,19 +51,9 @@
     align-items: center;
     justify-content:center ;
     cursor: pointer;
-    margin-right: 15px;
-    
+    margin-right: 15px;  
 }
 
-// .tooltip-class .tooltip-inner{
-//     background-color: #edf1fd ;
-
-// }
-
-.tooltip-class {
-    background-color: darkgreen;
-    font-size: 125%;
-  }
 
 
  

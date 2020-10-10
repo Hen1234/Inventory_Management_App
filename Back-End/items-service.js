@@ -1,12 +1,9 @@
 class ItemsService{
 
-    //Items list
     items;
-
     itemCounter;
      
     constructor(){
-        
         this.items = {};
         this.itemCounter = 0;
     }

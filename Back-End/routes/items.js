@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const ItemsService = require('../items-service');
 
-//Create new itemService object
 const itemsService = new ItemsService();
 
 //REST APIs 

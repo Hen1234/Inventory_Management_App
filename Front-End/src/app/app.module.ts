@@ -4,12 +4,13 @@ import {HttpClientModule} from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
-import { PrimaryButtonComponent } from './primary-btn/primary-btn.component';
-import { ItemsListComponent } from './items-list/items-list.component';
-import { ItemComponent } from './items-list/item/item.component';
-import { ItemsPageComponent } from './items-page/items-page.component';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { PrimaryButtonComponent } from './components/primary-btn/primary-btn.component';
+import { ItemsListComponent } from './components/items-list/items-list.component';
+import { ItemComponent } from './components/items-list/item/item.component';
+import { ItemsPageComponent } from './components/items-page/items-page.component';
 
 
 @NgModule({

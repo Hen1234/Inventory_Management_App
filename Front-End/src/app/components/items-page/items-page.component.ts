@@ -1,8 +1,9 @@
 import { Component, OnInit} from '@angular/core';
-import { ItemsService } from '../items-service';
+import { ItemsService } from '../../items-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { ModalStatus } from './items-page.config';
 import { Item } from '../items-list/item/item.config';
+
 
 @Component({
   selector: 'app-items-page',

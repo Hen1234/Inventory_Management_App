@@ -1,9 +1,8 @@
 describe('Item actions tests', ()=>{
 
     beforeEach(() => {
-        //TODO: change to 3000 
-        cy.visit('http://localhost:4200/');
-         //TODO: decide if to remove it and then to remove the last from the last line each it
+        cy.visit('http://localhost:3000/');
+    
         //Create a temporary item to ensure the name of the last item in the list
         //won't be the same as the name of the item created for the test
         cy.get('.add-item-btn').click();

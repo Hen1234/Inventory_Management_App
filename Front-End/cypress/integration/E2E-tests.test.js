@@ -31,7 +31,7 @@ describe('Item actions tests', ()=>{
 
         it('Add & Remove Item success', () =>{
             cy.get('.add-item-btn').click();
-            cy.contains("Note: please fill all the fiels to add a new item");
+            cy.contains("Note: Empty fields are invalid");
             cy.contains("Add Item");
             cy.get('#add-input-name').type('add item test').should('have.value', 'add item test');
             cy.get('#add-input-description').type('add item test des').should('have.value', 'add item test des');
@@ -47,7 +47,7 @@ describe('Item actions tests', ()=>{
         it('Add Item invalid amount', () =>{
             cy.get('.add-item-btn').click();
             cy.get('#add-input-amount').type('-5');
-            cy.contains("The amount value is invalid");
+            cy.contains("The value is invalid");
             cy.get("#cancel-button").click();
         })
 
@@ -87,7 +87,7 @@ describe('Item actions tests', ()=>{
 
             cy.get(".update-button").last().click();
             cy.get('#update-input-name').clear();
-            cy.contains("Empty fields are invalid");
+            cy.contains("Note: Empty fields are invalid");
             cy.get("#cancel-button").click();
             cy.get("app-item .remove-button").last().click();
             cy.get("app-item").last().contains('update item test2').should('not.exist');
@@ -110,7 +110,7 @@ describe('Item actions tests', ()=>{
             cy.get('#withdraw-input').type('3').should('have.value', '3');
             cy.get('#save-button').click();
             //Wait the DOM to be updated
-            cy.contains('2');
+            cy.contains("2");
             cy.get("app-item").last().contains("2");
 
             cy.get("app-item .remove-button").last().click();
@@ -129,7 +129,7 @@ describe('Item actions tests', ()=>{
             
             cy.get(".withdraw-button").last().click();
             cy.get('#withdraw-input').type('6').should('have.value', '6');
-            cy.contains("The amount value is invalid");
+            cy.contains("The value is invalid");
             cy.get("#save-button").should('be.disabled');
             cy.get("#cancel-button").click();
             cy.get("app-item .remove-button").last().click();
@@ -172,7 +172,7 @@ describe('Item actions tests', ()=>{
 
             cy.get(".deposit-button").last().click();
             cy.get('#deposit-input').type('-5').should('have.value', '-5');
-            cy.contains("The amount value is invalid");
+            cy.contains("The value is invalid");
             cy.get("#cancel-button").click();
             cy.get("app-item .remove-button").last().click();
             cy.get("app-item").last().contains('deposit item test2').should('not.exist');

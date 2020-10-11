@@ -59,13 +59,13 @@ export class ItemsPageComponent implements OnInit {
     this.modalStatus = ModalStatus.AddItem;
     this.modalTitle = "Add Item";
     this.modalRef = this.modalService.open(content);
-    this.noteMessage = "Note: please fill all the fiels to add a new item"; 
+    this.noteMessage = "Note: Empty fields are invalid"; 
   }
 
   changeAddItemValue(){
-    this.errorMessage = this.addCountValue < 0 ? "The amount value is invalid" : ""; 
+    this.errorMessage = this.addCountValue < 0 ? "The value is invalid" : ""; 
     this.noteMessage = !this.addNameValue || !this.addDescriptionValue || 
-    (this.addCountValue !== 0 && !this.addCountValue) ? "Note: please fill all the fiels to add a new item" : "";
+    (this.addCountValue !== 0 && !this.addCountValue) ? "Note: Empty fields are invalid" : "";
   }
 
   updateItem(item, content){
@@ -78,8 +78,8 @@ export class ItemsPageComponent implements OnInit {
   }
 
   changeUpdateItemValue(){
-    this.errorMessage = !this.updateNameValue || !this.updateDescriptionValue ? 
-    "Empty fields are invalid" : "";
+    this.noteMessage = !this.updateNameValue || !this.updateDescriptionValue ? 
+    "Note: Empty fields are invalid": "";
 
   }
 
@@ -100,7 +100,7 @@ export class ItemsPageComponent implements OnInit {
 
   changeWithdrawItemValue(){
     this.errorMessage = this.modalItem.count < this.withdrawAmountValue || this.withdrawAmountValue < 0 
-    ? "The amount value is invalid" : ""; 
+    ? "The value is invalid" : ""; 
     this.emptyValuesWithdrawOrDeposit = !this.withdrawAmountValue;
   }
 
@@ -113,7 +113,7 @@ export class ItemsPageComponent implements OnInit {
   }
 
   changeDepositItemValue(){
-    this.errorMessage = this.depositAmountValue < 0 ? "The amount value is invalid" : ""; 
+    this.errorMessage = this.depositAmountValue < 0 ? "The value is invalid" : ""; 
     this.emptyValuesWithdrawOrDeposit = !this.depositAmountValue;
   }
 

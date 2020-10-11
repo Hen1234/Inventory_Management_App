@@ -44,7 +44,8 @@
                </div>
                 <div class="input-line">
                     <label class="label-class">Item Count:</label>
-                    <input class="input-class amount-class" id="add-input-amount" placeholder="Enter an amount" type="number" min="0" [(ngModel)]= "addCountValue"
+                    <input [ngClass]= "{'amount-class':!errorMessage, 'amount-error-class':errorMessage}"
+                      id="add-input-amount" placeholder="Enter an amount" type="number" min="0" [(ngModel)]= "addCountValue"
                     (ngModelChange)= "changeAddItemValue()">
                 </div>
                 <div class="messages">
@@ -69,8 +70,8 @@
                     (ngModelChange)= "changeUpdateItemValue()" rows="3"></textarea>
                </div>
                <div class="messages">
-                    <div class="error-message" *ngIf="errorMessage">
-                        {{errorMessage}}
+                    <div class="note-message" *ngIf="noteMessage">
+                        {{noteMessage}}
                     </div>
                </div>
                
@@ -79,7 +80,7 @@
                 <div class="label-class input-line"> Item Count: {{modalItem.count}}</div>
                 <div class="input-line">
                     <label class="label-class">Withdraw Amount:</label>
-                    <input class="input-class amount-class" id="withdraw-input" placeholder="Enter an amount" type="number" min="0" [max]="modalItem.count"  [(ngModel)]= "withdrawAmountValue"
+                    <input [ngClass]= "{'amount-class':!errorMessage, 'amount-error-class':errorMessage}" id="withdraw-input" placeholder="Enter an amount" type="number" min="0" [max]="modalItem.count"  [(ngModel)]= "withdrawAmountValue"
                     (ngModelChange)= "changeWithdrawItemValue()">
                 </div>
                 <div class="messages">
@@ -92,7 +93,7 @@
                 <div class="label-class input-line"> Item Count: {{modalItem.count}}</div>
                 <div class="input-line">
                     <label class="label-class">Deposit Amount:</label>
-                    <input class="input-class amount-class" id="deposit-input" placeholder="Enter an amount" type="number" min="0" [(ngModel)]= "depositAmountValue"
+                    <input [ngClass]= "{'amount-class':!errorMessage, 'amount-error-class':errorMessage}" id="deposit-input" placeholder="Enter an amount" type="number" min="0" [(ngModel)]= "depositAmountValue"
                     (ngModelChange)= "changeDepositItemValue()">
                 </div>
                 <div class="messages">
